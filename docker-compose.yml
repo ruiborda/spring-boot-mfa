@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       db:
         condition: service_started
@@ -30,7 +30,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true
-      SPRINGDOC_SWAGGER_UI_PATH: /
+      SPRINGDOC_SWAGGER_UI_PATH: /api/v1
     restart: on-failure:3
 
 volumes:
