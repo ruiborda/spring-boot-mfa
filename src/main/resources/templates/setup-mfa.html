@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Setup MFA - MFA Demo</title>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Setup Two-Factor Authentication</h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    Scan the QR code with your authenticator app
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <img th:src="${qrCode}" alt="QR Code" class="w-48 h-48">
+            </div>
+            <div class="text-center">
+                <p class="text-sm text-gray-600">Secret key (if QR code doesn't work):</p>
+                <p class="font-mono text-sm bg-gray-100 p-2 rounded" th:text="${secret}"></p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600 text-center mb-4">After scanning, enter the code shown in your app to verify setup:</p>
+                <form th:action="@{/validate-mfa}" method="POST" class="space-y-4">
+                    <input type="hidden" name="email" th:value="${user.email}">
+                    <input type="hidden" name="userId" th:value="${user.id}">
+                    <input type="hidden" name="secretKey" th:value="${secret}">
+                    <input type="text" name="code" required pattern="[0-9]{6}"
+                        class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                        placeholder="Enter 6-digit code">
+                    <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Verify Setup
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

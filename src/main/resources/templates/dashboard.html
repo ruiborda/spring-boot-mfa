@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dashboard - MFA Demo</title>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Welcome!</h2>
+                <p class="mt-2 text-center text-sm text-gray-600" th:text="${'Hello ' + user.name}"></p>
+            </div>
+            
+            <div class="border-t border-b border-gray-200 py-4">
+                <h3 class="text-lg font-medium">Security Settings</h3>
+                <div class="mt-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Two-Factor Authentication</p>
+                            <p class="text-sm text-gray-500" th:text="${user.mfaEnabled ? 'Enabled' : 'Disabled'}"></p>
+                        </div>
+                        <div th:if="${!user.mfaEnabled}">
+                            <a th:href="@{/setup-mfa(userId=${user.id})}"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Enable 2FA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="/" 
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Sign Out
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

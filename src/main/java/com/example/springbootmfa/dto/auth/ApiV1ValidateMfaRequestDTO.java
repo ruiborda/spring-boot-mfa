@@ -19,4 +19,8 @@ public class ApiV1ValidateMfaRequestDTO {
     @Pattern(regexp = "^[0-9]{6}$", message = "Code must be 6 digits")
     @Schema(description = "6-digit MFA code", example = "123456")
     private String code;
+    
+    @NotBlank(message = "Secret key is required")
+    @Schema(description = "Temporary MFA secret key for validation", example = "JBSWY3DPEHPK3PXP")
+    private String secretKey;
 }

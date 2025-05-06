@@ -47,7 +47,6 @@ public class MfaServiceImpl implements MfaService {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
             
-            // Usar el codificador Base64 estándar para generar una URL de imagen válida
             String base64Image = Base64.getEncoder().encodeToString(outputStream.toByteArray());
             return "data:image/png;base64," + base64Image;
         } catch (WriterException | IOException e) {
@@ -57,21 +56,17 @@ public class MfaServiceImpl implements MfaService {
 
     @Override
     public boolean validateCode(String secretKey, String code) {
+        if (secretKey == null || code == null) {
+            return false;
+        }
         String expectedCode = getTOTPCode(secretKey);
         return expectedCode.equals(code);
     }
 
     @Override
     public boolean enableMfa(UUID userId) {
-        var user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        
-        String secretKey = generateSecretKey();
-        user.setMfaSecret(secretKey);
-        user.setMfaEnabled(true);
-        userRepository.save(user);
-        
-        return true;
+        // Este método ya no se usa directamente
+        throw new UnsupportedOperationException("Use AuthService.enableMfa instead");
     }
 
     @Override
