@@ -7,7 +7,34 @@
     <title>Validate MFA - MFA Demo</title>
 </head>
 <body class="bg-gray-100">
-    <div class="min-h-screen flex items-center justify-center">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-lg font-bold text-indigo-600">MFA Demo</span>
+                    </div>
+                    <div class="ml-6 flex space-x-8 items-center">
+                        <a href="/dashboard" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            Dashboard
+                        </a>
+                        <a href="#" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500">
+                            Validate MFA
+                        </a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="/" 
+                       class="ml-4 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Sign Out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="min-h-screen pt-16 flex items-center justify-center">
         <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
             <div>
                 <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Enter MFA Code</h2>
