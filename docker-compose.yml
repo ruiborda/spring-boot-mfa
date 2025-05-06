@@ -1,0 +1,37 @@
+name: spring-boot-mfa
+services:
+  db:
+    image: postgres:16
+    container_name: spring-boot-mfa-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - "5432:5432"
+    volumes:
+      - agro_data:/var/lib/postgresql/data
+
+  api:
+    container_name: spring-boot-mfa-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/database
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRINGDOC_SWAGGER_UI_PATH: /
+    restart: on-failure:3
+
+volumes:
+  agro_data:
